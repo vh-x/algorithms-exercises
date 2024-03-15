@@ -8,6 +8,23 @@
 
 const mergeSort = (nums) => {
   // code goes here
+  if (nums.length === 1) return nums;
+
+  const centerIndex = Math.floor(nums.length / 2);
+  const left = mergeSort(nums.slice(0, centerIndex));
+  const right = mergeSort(nums.slice(centerIndex));
+
+  const sorted = [];
+
+  while (left.length > 0 && right.length > 0) {
+    if (left[0] < right[0]) {
+      sorted.push(left.shift());
+    } else {
+      sorted.push(right.shift());
+    }
+  }
+
+  return sorted.concat(left, right);
 };
 
 // unit tests

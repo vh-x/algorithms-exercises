@@ -19,6 +19,52 @@
 
 class ArrayList {
   // code goes here
+  constructor() {
+    // init
+    this.data = {};
+    this.length = 0;
+  }
+  push(value) {
+    // add to the end
+    this.data[this.length] = value;
+    this.length++;
+  }
+  pop() {
+    // remove the last
+    if (this.length === 0) {
+      return void 0;
+    }
+    const item = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return item;
+  }
+  get(index) {
+    // return item
+    if (index < 0 || index > this.length - 1) {
+      return void 0;
+    }
+    return this.data[index];
+  }
+  delete(index) {
+    // remove item
+    if (index < 0 || index > this.length - 1) {
+      return void 0;
+    }
+    const response = this.data[index];
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+    this.#collapseTo(index);
+    delete this.data[this.length - 1];
+    this.length--;
+    return response;
+  }
+  #collapseTo(index) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i + 1];
+    }
+  }
 }
 
 // unit tests

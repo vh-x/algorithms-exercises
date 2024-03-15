@@ -18,12 +18,44 @@ right - Node/object - the right node which itself may be another tree
 
 class Tree {
   // code goes here
+  constructor() {
+    this.root = null;
+  }
+  add(value) {
+    if (this.root) {
+      this.root.add(value);
+    } else {
+      this.root = new Node(value);
+    }
+  }
+  toObject() {
+    return this.root;
+  }
 }
 
 // you might consider using a Node class too
-// class Node {
-//   // code maybe goes here
-// }
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+  add(value) {
+    if (value > this.value) {
+      if (this.right) {
+        this.right.add(value);
+      } else {
+        this.right = new Node(value);
+      }
+    } else {
+      if (this.left) {
+        this.left.add(value);
+      } else {
+        this.left = new Node(value);
+      }
+    }
+  }
+}
 
 // unit tests
 // do not modify the below code

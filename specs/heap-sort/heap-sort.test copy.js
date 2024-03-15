@@ -9,42 +9,40 @@
 const heapSort = (array) => {
   // code
   createMaxHeap(array);
-
   for (let i = array.length - 1; i > 0; i--) {
     swapPlace(0, i, array);
     heapify(array, 0, i);
   }
+  return array;
 };
 
 const createMaxHeap = (array) => {
   // code
   for (let i = Math.floor(array.length / 2) - 1; i >= 0; i--) {
-    heapify(array, i);
+    heapify(array, i, array.length);
   }
 };
 
 const swapPlace = (index1, index2, array) => {
-  [array[index1], array[index2]] = [array[index2], array[index1]];
+  const temp = array[index1];
+  array[index1] = array[index2];
+  array[index2] = temp;
 };
 
-const heapify = (array, index, size = array.length) => {
+const heapify = (array, index, size) => {
   // code
-  const leftIndex = index * 2 + 1;
-  const rightIndex = leftIndex + 1;
-
-  let largestIndex = index;
-
-  if (leftIndex < size && array[leftIndex] > array[largestIndex]) {
-    largestIndex = leftIndex;
+  const left = 2 * index + 1;
+  const right = 2 * index + 2;
+  let largest = index;
+  if (left < size && array[left] > array[largest]) {
+    largest = left;
   }
-
-  if (rightIndex < size && array[rightIndex] > array[largestIndex]) {
-    largestIndex = rightIndex;
+  if (right < size && array[right] > array[largest]) {
+    largest = right;
   }
-
-  if (largestIndex !== index) {
-    swapPlace(index, largestIndex, array);
-    heapify(array, largestIndex, size);
+  if (largest !== index) {
+    swapPlace(index, largest, array);
+    heapify(array, largest, size);
   }
 };
 

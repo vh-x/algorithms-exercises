@@ -1,16 +1,30 @@
+import { range, shuffle } from "lodash";
 import React from "react";
-import { shuffle, range } from "lodash";
-import { App, snapshot, done, clear } from "./sort-visualizer";
+import { App, clear, done, snapshot } from "./sort-visualizer";
 
 import "./sort.css";
 
-function sort(array) {
+function sort(nums) {
   // do cool stuff here
-
-  // call snapshot any time you do anything to the array
-  // it's okay if you call it with duplicate value array,
+  let swapped;
+  let iterations = 0;
+  do {
+    swapped = false;
+    for (let i = 0; i < nums.length - 1 - iterations; i++) {
+      if (nums[i] > nums[i + 1]) {
+        const temp = nums[i];
+        nums[i] = nums[i + 1];
+        nums[i + 1] = temp;
+        swapped = true;
+        snapshot(nums);
+      }
+    }
+    iterations++;
+  } while (swapped);
+  // call snapshot any time you do anything to the nums
+  // it's okay if you call it with duplicate value nums,
   // it will deduplicate for you
-  snapshot(array);
+  snapshot(nums);
 }
 
 export default function SortComponent() {

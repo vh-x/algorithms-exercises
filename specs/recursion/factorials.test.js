@@ -10,7 +10,14 @@
   factorial(3) = 6 
 */
 
-function factorial(n) {}
+function factorial(n) {
+  return n === 1 ? 1 : n * factorial(n - 1);
+  // let product = 1;
+  // for (let i = 1; i <= n; i++) {
+  //   product *= i;
+  // }
+  // return product;
+}
 
 // unit tests
 // do not modify the below code

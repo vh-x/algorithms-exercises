@@ -16,14 +16,58 @@ class Node {
   // you don't have to use this data structure, this is just how I did it
   // you'll almost definitely need more methods than this and a constructor
   // and instance variables
+  constructor(string) {
+    this.children = [];
+    this.terminus = string.length === 1;
+    this.value = string[0];
+    if (string.length > 1) {
+      this.children.push(new Node(string.substr(1)));
+    }
+  }
+  add(string) {
+    const value = string[0];
+    const next = string.substr(1);
+    for (const child of this.children) {
+      if (child.value === value) {
+        if (next) {
+          child.add(next);
+        } else {
+          child.terminus = true;
+        }
+        return;
+      }
+    }
+    this.children.push(new Node(string));
+  }
+  _complete(search, built, suggestions) {
+    if (suggestions.length >= 3 || (search && search[0] !== this.value)) {
+      return suggestions;
+    }
+    if (this.terminus) {
+      suggestions.push(built + this.value);
+    }
+
+    for (const child of this.children) {
+      child._complete(search.substr(1), built + this.value, suggestions);
+    }
+    return suggestions;
+  }
   complete(string) {
-    return [];
+    let completions = [];
+    for (const child of this.children) {
+      completions = completions.concat(child._complete(string, "", []));
+    }
+    return completions;
   }
 }
 
 const createTrie = (words) => {
   // you do not have to do it this way; this is just how I did it
   const root = new Node("");
+
+  for (const word of words) {
+    root.add(word.toLowerCase());
+  }
 
   // more code should go here
 
@@ -69,7 +113,7 @@ describe.skip("tries", function () {
         "new orleans",
         "new haven",
         "newark",
-        "newport news"
+        "newport news",
       ]).length
     ).toBe(3);
   });
@@ -127,7 +171,7 @@ describe.skip("tries", function () {
         "santee",
         "sandy",
         "sandy springs",
-        "sanford"
+        "sanford",
       ]).length
     ).toBe(3);
   });

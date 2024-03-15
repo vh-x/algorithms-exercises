@@ -1,0 +1,1 @@
+{"mappings":"AAAA,GACA,UAAA,CACA,WAAA,CACA,iBACA,CAEA,MACA,kBACA","sources":["./src/tree.css"],"sourcesContent":["td {\r\n  color: white;\r\n  padding: 5px;\r\n  text-align: center;\r\n}\r\n\r\ntable {\r\n  margin-bottom: 10px;\r\n}\r\n"],"names":[],"version":3,"file":"index.cb547d10.css.map"}
